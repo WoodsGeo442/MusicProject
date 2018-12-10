@@ -28,8 +28,6 @@ def index():
     if not spotify.authorized:
         return redirect(url_for('spotify.login'))
     try: 
-    	search_string = urllib.parse.quote('The Birthday Party')
-    	resp = spotify.get(f'v1/search?q={search_string}&type=artist')
     	return render_template('musicRecommendation_home.html', questions=questions)
     except(InvalidGrantError, TokenExpiredError) as e:
     	return redirect(url_for('spotify.login'))
