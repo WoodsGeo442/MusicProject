@@ -1,0 +1,23 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+  Music Recommendation
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h1>Stream</h1>
+<table border = 1>
+         {% for key, value in answers.items() %}
+         
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+            
+         {% endfor %}
+      </table>
+
+</div>
+{% endblock %}

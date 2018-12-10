@@ -1,21 +1,56 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-  Test
+  Music Recommendation
 {% endblock %}
 
 {% block content %}
 <div class="container">
 
-<h1>{{data["artists"]["items"][0]["name"]}}</h1>
+<h1>Survey</h1>
 
-<h3>Genres</h3>
+<form action = "http://localhost:5000/stream" method = "POST">
+What is your birthday?
+<br>
+Day<br />
+<select name='day' id='day'>
+{% for i in range(31)%}
+  <option value= {{i + 1}}>{{i + 1}}</option>
+{% endfor %}
+</select>
+<br>
+Month<br />
+<select name='month' id='month'>
+{% for i in range(12)%}
+	<option value= {{i + 1}}>{{i + 1}}</option>
+{% endfor %}
+</select>
+<br>
+Year<br />
 
-<ul>
-  {% for i in data["artists"]["items"][0]["genres"]%}
-  <li>{{i}}</li>
+<select name='year' id='year'>
+{% for i in range(1947, 2018)%}
+	<option value= {{i + 1}}>{{i + 1}}</option>
+{% endfor %}
+
+</select>
+
+<br>
+
+<h3>Rank how much you relate to the following statements on a scale of 1 (least) to 5 (most).</h3>
+
+{% for i in range(questions|length) %}
+  {{questions[i]}}
+  {% for j in range(6) %}
+  	<input type="radio" name={{i}} value={{j + 1}}>{{j + 1}}</input>
   {% endfor %}
-</ul>
+  <br>
+{% endfor %}
+
+<input type = "submit" value = "submit" />
+
+</form>
+
 
 </div>
 {% endblock %}
