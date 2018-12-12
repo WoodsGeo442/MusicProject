@@ -9,9 +9,9 @@ from flask_bootstrap import Bootstrap
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError, TokenExpiredError, OAuth2Error
 import requests, json, urllib.parse
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.secret_key = 'development'
-Bootstrap(app)
+#Bootstrap(app)
 
 blueprint = make_spotify_blueprint(
 	client_id='9d09c92238a545bcb83abf4b3427c7d5',
