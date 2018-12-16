@@ -2,16 +2,15 @@
 #Partner: Geoffrey
 #11/28/18
 #CST 205 Project
+#run with this  export OAUTHLIB_INSECURE_TRANSPORT=1
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify
-from flask_bootstrap import Bootstrap
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError, TokenExpiredError, OAuth2Error
 import requests, json, urllib.parse
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = 'development'
-#Bootstrap(app)
 
 blueprint = make_spotify_blueprint(
 	client_id='9d09c92238a545bcb83abf4b3427c7d5',
@@ -36,4 +35,5 @@ def index():
 def stream():
 	if request.method == 'POST':
 		answers = request.form
-		return render_template('musicRecommendation_stream.html', answers=answers)
+		resp = requests.get('https://api.spotify.com/v1/recommendations/available-genre-seeds', headers={'Authorization': 'access_token myToken'})
+		return render_template('musicRecommendation_stream.html', answers=resp)

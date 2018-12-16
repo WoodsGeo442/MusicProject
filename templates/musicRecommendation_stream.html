@@ -3,17 +3,16 @@
   Music Recommendation
 {% endblock %}
 
-<link rel="stylesheet" href="../styles/styles.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 
 {% block content %}
 <div class="container">
 
 <h1>Stream</h1>
 <table border = 1>
-         {% for key, value in answers.items() %}
+         {% for value in answers %}
          
             <tr>
-               <th> {{ key }} </th>
                <td> {{ value }} </td>
             </tr>
             
