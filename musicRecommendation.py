@@ -2,7 +2,7 @@
 #Partner: Geoffrey
 #11/28/18
 #CST 205 Project
-#run with this  export OAUTHLIB_INSECURE_TRANSPORT=1
+#run with this export OAUTHLIB_INSECURE_TRANSPORT=1
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_dance.contrib.spotify import make_spotify_blueprint, spotify

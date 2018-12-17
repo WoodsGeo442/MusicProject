@@ -1,0 +1,8 @@
+In order for this application to run you will need the following python modules:
+
+flask (1.0.2)
+flask_dance (1.1.0)
+json (2.0.9)
+oauthlib (2.1.0)
+requests (2.19.1)
+
