@@ -12,42 +12,53 @@
 <h1>Survey</h1>
 
 <form action = "http://localhost:5000/stream" method = "POST">
-What is your birthday?
-<br>
-Day<br />
-<select name='day' id='day'>
-{% for i in range(31)%}
-  <option value= {{i + 1}}>{{i + 1}}</option>
-{% endfor %}
-</select>
-<br>
-Month<br />
-<select name='month' id='month'>
-{% for i in range(12)%}
-	<option value= {{i + 1}}>{{i + 1}}</option>
-{% endfor %}
-</select>
-<br>
-Year<br />
-
-<select name='year' id='year'>
-{% for i in range(1947, 2018)%}
-	<option value= {{i + 1}}>{{i + 1}}</option>
-{% endfor %}
-
-</select>
-
-<br>
 
 <h3>Rank how much you relate to the following statements on a scale of 1 (least) to 5 (most).</h3>
 
-{% for i in range(questions|length) %}
-  {{questions[i]}}
-  {% for j in range(6) %}
-  	<input type="radio" name={{i}} value={{j + 1}}>{{j + 1}}</input>
+{{questions[0]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{0}} value={{ (15 * j) - 60}}>{{j + 1}}</input>
   {% endfor %}
   <br>
-{% endfor %}
+{{questions[1]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{1}} value={{ j * 25}}>{{j + 1}}</input>
+  {% endfor %}
+  <br>
+{{questions[2]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{2}} value={{ j * 0.25}}>{{j + 1}}</input>
+  {% endfor %}
+  <br>
+{{questions[3]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{3}} value={{ j * 0.25}}>{{j + 1}}</input>
+  {% endfor %}
+  <br>
+{{questions[4]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{4}} value={{ j + 1 }}>{{j + 1}}</input>
+  {% endfor %}
+  <br>
+{{questions[5]}}
+  {% for j in range(5) %}
+  	<input type="radio" name={{5}} value={{ j * 0.25}}>{{j + 1}}</input>
+  {% endfor %}
+  <br>
+
+<h3>Pick a genre</h3>
+<select name='genre' id='genre'>
+	<option value= "acoustic">Acoustic</option>
+	<option value= "electronic">Electronic</option>
+	<option value= "hip-hop">Rap</option>
+	<option value= "jazz">Jazz</option>
+	<option value= "metal">Metal</option>
+	<option value= "pop">Pop</option>
+	<option value= "r-n-b">R&B</option>
+	<option value= "rock">Rock</option> 
+</select>
+
+
 
 <input type = "submit" value = "submit" />
 

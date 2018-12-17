@@ -18,22 +18,29 @@ blueprint = make_spotify_blueprint(
 	scope='playlist-modify-public streaming user-library-read',
 )
 
-questions = ["I am a very sociable person.", "I like to party.", "I am energetic.", "I enjoy dancing.", "I enjoy happy songs.", "I enojoy instrumental songs." ]
+questions = ["I am a very sociable person.", "I like to party.", "I am energetic.", "I enjoy dancing.", "I enjoy happy songs.", "I enjoy instrumental songs." ]
 
 app.register_blueprint(blueprint, url_prefix='/login')
 
 @app.route('/')
 def index():
-    if not spotify.authorized:
-        return redirect(url_for('spotify.login'))
-    try: 
-    	return render_template('musicRecommendation_home.html', questions=questions)
-    except(InvalidGrantError, TokenExpiredError) as e:
-    	return redirect(url_for('spotify.login'))
+	return render_template('musicRecommendation_home.html', questions=questions)
+    
 
 @app.route('/stream', methods = ['POST', 'GET'])
 def stream():
-	if request.method == 'POST':
-		answers = request.form
-		resp = requests.get('https://api.spotify.com/v1/recommendations/available-genre-seeds', headers={'Authorization': 'access_token myToken'})
-		return render_template('musicRecommendation_stream.html', answers=resp)
+	if not spotify.authorized:
+		return redirect(url_for('spotify.login'))
+	try:
+		if request.method == 'POST':
+			answers = request.form.to_dict()
+			if answers["4"] == "1" or answers["4"] == "2":
+				mode = "0"
+			else:
+				mode = "1"
+			search_string = ('seed_genres=' + answers["genre"] + '&target_danceability=' + answers["3"] + '&target_energy=' + answers["2"] + '&target_instrumentalness=' + answers["5"] + '&target_loudness=' + answers["0"] + '&target_mode=' + mode + '&target_popularity=' + answers["1"] )
+			resp = spotify.get(f'v1/recommendations?limit=1&{search_string}')
+
+			return render_template('musicRecommendation_stream.html', data=(resp.json()["tracks"][0]))
+	except(InvalidGrantError, TokenExpiredError) as e:
+		return redirect(url_for('spotify.login'))
